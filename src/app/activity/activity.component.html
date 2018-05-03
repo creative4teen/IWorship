@@ -1,0 +1,43 @@
+<hr/>
+<h4><font color="#ff6666"> &nbsp;<b>I-Worship</b></font></h4>
+<hr/>
+
+<mat-tab-group *ngIf="!ongoing">
+    <mat-tab label="教会当前活动">
+        <app-new-activity [sectionGroup]="'all|out'"  [sectionTitle]="'进入一项教会活动'"></app-new-activity>
+    </mat-tab>
+    <mat-tab label="教会历史活动">
+        <app-past-activity [sectionGroup]="'all|out'"  [sectionTitle]="'选择一项教会历史活动'"></app-past-activity>
+    </mat-tab>
+    <mat-tab label="团契活动">
+        <!--app-new-activity [sectionGroup]="'brothers|sisters|youth'"  [sectionTitle]="'进入一项团契活动'"></app-new-activity-->
+        <h2>Under Construction</h2>
+    </mat-tab>
+    <mat-tab label="期刊图书(预订)">
+        <app-item-table [type]="'BOOK'"  [title]="'教会期刊/图书(预订)'"></app-item-table>
+    </mat-tab>
+    <mat-tab label="房间器材预订">
+        <app-item-table [type]="'ROOM'"  [title]="'房间器材(预订)'"></app-item-table>
+    </mat-tab>
+</mat-tab-group>
+
+<app-current-activity *ngIf="ongoing"></app-current-activity>
+
+<hr/>
+
+<div  fxLayout="row" fxLayoutAlign="center center">
+    <section  *ngIf="shareDataService.homeChurch.wechat">
+        <a [href]="shareDataService.homeChurch.wechat"  target="_blank"> <img src="http://iwatch.creativeteen.org/uploads/wechat.png" width=96/> </a>
+    </section>
+    <section  *ngIf="shareDataService.homeChurch.whatsapp">
+        <a [href]="shareDataService.homeChurch.whatsapp"  target="_blank"> <img src="http://iwatch.creativeteen.org/uploads/whatsapp.png" width=96/> </a>
+    </section>
+    <section *ngIf="shareDataService.homeChurch.facebook">
+        <a [href]="shareDataService.homeChurch.facebook"  target="_blank"> <img src="http://iwatch.creativeteen.org/uploads/facebook.png" width=96/> </a>
+    </section>
+    <section>
+        <app-paypal></app-paypal>
+    </section>
+</div>
+
+

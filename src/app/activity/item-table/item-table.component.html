@@ -1,0 +1,67 @@
+<h3> {{title}} </h3>
+<hr/>
+<div fxLayoutAlign="center center">
+  <mat-form-field fxFlex="40%">
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+</div>
+
+<mat-table [dataSource]="dataSource" matSort>
+
+  <ng-container matColumnDef="name">
+      <mat-header-cell fxFlex="100px" *matHeaderCellDef mat-sort-header>名称</mat-header-cell>
+      <mat-cell fxFlex="100px" *matCellDef="let element" >{{ element.name }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+    <mat-header-cell fxFlex="150px" *matHeaderCellDef mat-sort-header>简述</mat-header-cell>
+    <mat-cell fxFlex="150px" *matCellDef="let element" item-width="30%">{{ element.description }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="icon">
+    <mat-header-cell fxFlex="128px" *matHeaderCellDef mat-sort-header>阅览</mat-header-cell>
+    <mat-cell fxFlex="128px" *matCellDef="let element" item-width="15%"> 
+        <a [href]="element.web" *ngIf="element.type=='BOOK'"> <img [src]="element.icon" height="160"/> </a>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="userid" item-width="10%">
+    <mat-header-cell fxFlex="100px" *matHeaderCellDef mat-sort-header>预订用户</mat-header-cell>
+    <mat-cell fxFlex="100px" *matCellDef="let element">{{ element.userid }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="gotobutton" item-width="10%">
+      <mat-header-cell fxFlex="100px" *matHeaderCellDef></mat-header-cell>
+      <mat-cell fxFlex="100px" *matCellDef="let element" (click)="$event.stopPropagation()">
+          <button mat-button (click)="onSelectItem(element.id)">
+              <mat-icon>directions</mat-icon>
+          </button>
+      </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="addbutton" item-width="10%">
+        <mat-header-cell fxFlex="100px" *matHeaderCellDef></mat-header-cell>
+        <mat-cell fxFlex="100px" *matCellDef="let element" (click)="$event.stopPropagation()">
+            <button mat-button (click)="onSelectItem(element.id)" *ngIf="!element.userid">
+                <mat-icon>assignment_ind</mat-icon>
+            </button>
+        </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="removebutton" item-width="10%">
+    <mat-header-cell fxFlex="100px" *matHeaderCellDef></mat-header-cell>
+    <mat-cell fxFlex="100px" *matCellDef="let element" (click)="$event.stopPropagation()">
+        <button mat-button (click)="onSelectItem(element.id)" *ngIf="element.userid">
+            <mat-icon>remove_circle</mat-icon>
+        </button>
+    </mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+
+<mat-paginator [pageSize]="1" [pageSizeOptions]="[1, 5, 10, 20]">
+</mat-paginator>

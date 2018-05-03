@@ -1,0 +1,32 @@
+<div fxLayout="column" fxLayoutAlign="center center">
+
+
+    <section class="start-activity" >
+        <form (ngSubmit)="onStartActivity(f)" #f="ngForm">
+            <mat-card fxFlex.xs="100%" fxFlex="400px">
+                <mat-card-title fxLayoutAlign="center">{{ sectionTitle }}</mat-card-title>
+                <mat-card-content fxLayoutAlign="center">
+                    <mat-form-field *ngIf="isLoading">
+                        <mat-select placeholder="选取教会活动"  ngModel name="activityid" required>
+                            <mat-option *ngFor="let activity of sharedDataService.filterActivityObservable('all','running') | async" [value]="activity.id">
+                                {{ activity.title }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-spinner *ngIf="!isLoading"></mat-spinner>
+                </mat-card-content>
+                <mat-card-actions fxLayoutAlign="center" *ngIf="isLoading">
+                    <button type="submit" mat-button [disabled]="f.invalid">进入活动</button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+    </section>
+
+    <hr/>
+
+    <section>
+            <app-show  [activityGroup]="sectionGroup" [activityState]="'running'"></app-show>
+    </section>
+
+
+</div>    

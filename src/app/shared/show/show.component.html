@@ -1,0 +1,23 @@
+<ngb-carousel *ngIf="fetchPromotionsObservable()" [interval]="slideInterval" (on-carousel-change)="onSlideChanged()">
+    <ng-template ngbSlide  *ngFor="let promotion of fetchPromotionsObservable() | async">
+        <div *ngIf="promotion.endsWith('.mp4')" align="center">
+            <video width="70%" controls>
+                <source [src]="fetchPath(promotion)" type="video/mp4">
+                    Your browser does not support the video tag.
+            </video>          
+        </div>
+        <div *ngIf="promotion.endsWith('.mp3')" align="center">
+            <audio controls>
+                <source [src]="fetchPath(promotion)" type="audio/mpeg">
+                    Your browser does not support the audio tag.
+            </audio>
+        </div>
+        <!--iframe *ngIf="activity.webyt"  width="640" height="360" [src]='sanitizer.bypassSecurityTrustResourceUrl(activity.webyt)' frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe -->
+        <div *ngIf="promotion.endsWith('.jpg')" align="center">
+            <img [src]="fetchPath(promotion)" width="70%" alt="" >
+        </div>
+        <div *ngIf="promotion.endsWith('.png')" align="center">
+            <img [src]="fetchPath(promotion)" width="70%" alt="" >
+        </div>
+    </ng-template>
+</ngb-carousel>

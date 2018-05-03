@@ -1,0 +1,47 @@
+<form *ngIf="sharedDataService.language=='zh'"  action="https://www.paypal.com/cgi-bin/webscr" method="post">
+    <!-- Identify your business so that you can collect the payments. -->
+    <input type="hidden" name="business" [value]="sharedDataService.homeChurch.paypal">
+
+    <!-- Specify a Subscribe button. -->
+    <input type="hidden" name="cmd" value="_xclick-subscriptions">
+    <!-- Identify the subscription. -->
+    <input type="hidden" name="item_name" [value]="sharedDataService.homeChurch.name_zh">
+    <input type="hidden" name="item_number" value="奉献">
+
+    <!-- Set the terms of the regular subscription. -->
+    <input type="hidden" name="currency_code" value="CAD">
+    <input type="hidden" name="a3" value="5.00">
+    <input type="hidden" name="p3" value="1">
+    <input type="hidden" name="t3" value="M">
+
+    <!-- Set recurring payments until canceled. -->
+    <input type="hidden" name="src" value="1">
+
+    <!-- Display the payment button. -->
+    <input type="image" name="submit"  src="http://iwatch.creativeteen.org/uploads/offering_zh.png" width="160" alt="Subscribe"/>
+    <img alt="" width="1" height="1"   src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >
+</form>
+
+<form  *ngIf="sharedDataService.language=='en'"  action="https://www.paypal.com/cgi-bin/webscr" method="post">
+    <!-- Identify your business so that you can collect the payments. -->
+    <input type="hidden" name="business" [value]="sharedDataService.homeChurch.paypal">
+
+    <!-- Specify a Subscribe button. -->
+    <input type="hidden" name="cmd" value="_xclick-subscriptions">
+    <!-- Identify the subscription. -->
+    <input type="hidden" name="item_name" [value]="sharedDataService.homeChurch.name">
+    <input type="hidden" name="item_number" value="Offering">
+
+    <!-- Set the terms of the regular subscription. -->
+    <input type="hidden" name="currency_code" value="CAD">
+    <input type="hidden" name="a3" value="5.00">
+    <input type="hidden" name="p3" value="1">
+    <input type="hidden" name="t3" value="M">
+
+    <!-- Set recurring payments until canceled. -->
+    <input type="hidden" name="src" value="1">
+
+    <!-- Display the payment button. -->
+    <input type="image" name="submit"  src="http://iwatch.creativeteen.org/uploads/offering_zh.png" width="160" alt="Subscribe"/>
+    <img alt="" width="1" height="1"   src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >
+</form>

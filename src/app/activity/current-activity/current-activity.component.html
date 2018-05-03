@@ -1,0 +1,95 @@
+<div  fxLayout="column" fxLayoutAlign="start" style="height: 100%; width: 100%">
+    <div>
+        <h4>{{  shareDataService.runningActivity.starting | date:fullDate }} <br/> {{ shareDataService.runningActivity.name}}</h4>
+        <hr/>
+    </div>
+    <div>
+        <font size="3">{{  shareDataService.runningActivity.description }}</font>
+        <hr/>
+    </div>
+    <hr/>
+    <button mat-raised-button color="accent" (click)="onStop()">退出</button>
+    <hr/>
+</div>
+
+
+<mat-tab-group *ngIf="!ongoing">
+    <mat-tab label="当前活动直播">
+        <div  fxLayout="column" fxLayoutAlign="center center" style="height: 100%; width: 100%">
+            <div *ngIf="shareDataService.fetchAMediaOnType('live')">
+                    <a [href]="shareDataService.fetchAMediaOnType('live').url" target="_blank"> <img src="http://watch.churchserve.org/uploads/live.png" width=256/></a>
+                    <hr/>
+            </div>
+            <h3>{{ shareDataService.runningActivity.title }}</h3>
+            <hr/>
+            <section *ngIf="bibleSearch()">
+                <a [href]="bibleSearch()"  target="_blank"> <img src="http://iwatch.creativeteen.org/uploads/bible.png" width=128/> </a>
+            </section>
+            <hr/>
+            <img src="http://watch.churchserve.org/uploads/pic.png" width=256 *ngIf="shareDataService.fetchAMediaOnType('picture')"/>
+            <div *ngFor="let media4 of shareDataService.fetchMediasOnType('picture')">
+                <a [href]="media4.url" target="_blank"> <h1>{{media4.name}}</h1> </a>
+            </div>
+            <hr/>
+            <h4>{{ shareDataService.runningActivity.text }}</h4>
+            <hr/>
+        </div>
+    </mat-tab>
+    <mat-tab label="当前活动资料">
+        <div  fxLayout="column" fxLayoutAlign="center center" style="height: 100%; width: 100%">
+            <img src="http://watch.churchserve.org/uploads/pic.png" width=256 *ngIf="shareDataService.fetchAMediaOnType('picture')"/>
+            <div *ngFor="let media1 of shareDataService.fetchMediasOnType('picture')">
+                    <a [href]="media1.url" target="_blank"> <h1>{{media1.name}}</h1> </a>
+            </div>
+            <hr/>
+            <img src="http://watch.churchserve.org/uploads/doc.png" width=256 *ngIf="shareDataService.fetchAMediaOnType('doc')"/>
+            <div *ngFor="let media2 of shareDataService.fetchMediasOnType('doc')">
+                    <a [href]="media2.url" target="_blank"> <h1>{{media2.name}}</h1> </a>
+            </div>
+            <hr/>
+            <img src="http://watch.churchserve.org/uploads/med.png" width=256 *ngIf="shareDataService.fetchAMediaOnType('mp4|mp3')"/>
+            <div *ngFor="let media3 of shareDataService.fetchMediasOnType('mp4|mp3')">
+                    <a [href]="media3.url" target="_blank"> <h1>{{media3.name}}</h1> </a>
+            </div>
+            <hr/>
+            <hr/>
+            <h3>{{ shareDataService.runningActivity.title }}</h3>
+            <hr/>
+            <h4>{{ shareDataService.runningActivity.text }}</h4>
+            <hr/>
+        </div>
+    </mat-tab>
+    <mat-tab label="当前活动会议" *ngIf="meetingOn()">
+        <div  fxLayout="column" fxLayoutAlign="center center" style="height: 100%; width: 100%">
+            <div>
+                    <hr/>
+                    <a [href]="shareDataService.fetchAMediaOnType('meet').url" target="_blank"> <img src="http://watch.churchserve.org/uploads/meet.png" width=256/></a>
+            </div>
+            <h3>{{ shareDataService.runningActivity.title }}</h3>
+            <hr/>
+            <h4>{{ shareDataService.runningActivity.text }}</h4>
+            <hr/>
+        </div>
+    </mat-tab>
+    <mat-tab label="当前活动讨论">
+        <div *ngIf="shareDataService.runningActivity" >
+            <hr/>
+                <h4> <font color="#2458ad">... 讨论区 ...</font></h4> 
+            <hr/>
+            <h4>
+                <input type="text" id="message" name="message" placeholder="Input..." [(ngModel)]="values" (keyup.enter)="onMessageInput()">
+            </h4>
+            <hr/>
+            <div *ngFor="let rec of shareDataService.runningActivity.records">
+                <font color="#123b7c" size="3"> {{ rec }} </font>
+            </div>
+            <hr/>
+        </div>
+    </mat-tab>
+    <mat-tab label="账户/奉献">
+        <h2>本年度截止今日的奉献额 : $1250.00 </h2>
+        <hr/>
+        <h3>你們要給人，就必有給你們的，用十足的量器，連搖帶按，上尖下流的倒在你們懷裡... </h3>
+    </mat-tab>
+    
+</mat-tab-group>
